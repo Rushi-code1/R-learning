@@ -153,6 +153,5 @@ plot(numbers, type='o', col='blue', xlab='Index', ylab='Value', main='Basic Plot
 - [R for Data Science](https://r4ds.had.co.nz/)
 - [CRAN R Project](https://cran.r-project.org/)
 - [ggplot2 Documentation](https://ggplot2.tidyverse.org/)
-
-  ---
+---
 
