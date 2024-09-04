@@ -1,223 +1,264 @@
-# R Cheatsheet
+# ------------------------------
+# R Programming Tutorial Script
+# ------------------------------
 
-## Basic Arithmetic Operations
+# 1. Basics of R
 
-# Addition
-x + y
+# Basic arithmetic operations
+x <- 10
+y <- 5
+sum_xy <- x + y      # Addition
+diff_xy <- x - y     # Subtraction
+prod_xy <- x * y     # Multiplication
+quot_xy <- x / y     # Division
+mod_xy <- x %% y     # Modulus (remainder)
+pow_xy <- x^y        # Exponentiation
 
-# Subtraction
-x - y
+# Print results
+print(sum_xy)
+print(diff_xy)
+print(prod_xy)
+print(quot_xy)
+print(mod_xy)
+print(pow_xy)
 
-# Multiplication
-x * y
-
-# Division
-x / y
-
-# Exponentiation
-x^y
-
-# Modulus (remainder)
-x %% y
-
-# Integer Division
-x %/% y
-
-
-## Comparison Operators
-
-# Equal to
-a == b
-
-# Not equal to
-a != b
-
-# Less than
-a < b
-
-# Greater than
-a > b
-
-# Less than or equal to
-a <= b
-
-# Greater than or equal to
-a >= b
-
-
-## Logical Operators
-
-# Logical AND
-x & y
-
-# Logical OR
-x | y
-
-# Logical NOT
-!x
-
-# Element-wise AND
-x && y
-
-# Element-wise OR
-x || y
-
-
-## Data Types
+# 2. Data Types in R
 
 # Numeric
-num <- 42
+num <- 42.5
 
 # Integer
-int <- 42L
+int <- 10L
 
-# Character (string)
-str <- "Hello, World!"
+# Logical
+logi <- TRUE
 
-# Logical (boolean)
-bool <- TRUE  # or FALSE
+# Character
+char <- "Hello, R!"
 
-# Complex
-comp <- 1 + 2i
-
-
-## Data Structures
-
-### Vectors
-
-# Create a vector
+# Vector (homogeneous collection)
 vec <- c(1, 2, 3, 4, 5)
 
-# Access elements
-vec[1]  # First element
+# List (heterogeneous collection)
+lst <- list(name = "John", age = 25, scores = c(90, 85, 88))
 
-# Modify elements
-vec[1] <- 10
+# Data Frame (tabular data)
+df <- data.frame(
+  id = 1:3,
+  name = c("Alice", "Bob", "Charlie"),
+  score = c(85, 92, 88)
+)
 
+# 3. Control Structures
 
-### Lists
-
-# Create a list
-lst <- list(name = "Alice", age = 25, scores = c(90, 85, 88))
-
-# Access elements
-lst$name
-lst[[1]]
-
-
-### Matrices
-
-# Create a matrix
-mat <- matrix(1:9, nrow = 3, ncol = 3)
-
-# Access elements
-mat[1, 2]  # Element in the first row, second column
-
-
-### Data Frames
-
-# Create a data frame
-df <- data.frame(Name = c("Alice", "Bob"), Age = c(25, 30))
-
-# Access columns
-df$Name
-
-# Access rows and columns
-df[1, "Age"]
-
-
-## Control Structures
-
-### If-Else Statements
-
-if (condition) {
-  # Code if condition is true
+# If-else statement
+num <- 10
+if (num > 0) {
+  print("Positive number")
+} else if (num < 0) {
+  print("Negative number")
 } else {
-  # Code if condition is false
+  print("Zero")
 }
 
-
-### For Loops
-
-for (i in 1:10) {
+# For loop
+for (i in 1:5) {
   print(i)
 }
 
-
-### While Loops
-
-while (condition) {
-  # Code to execute while condition is true
+# While loop
+count <- 1
+while (count <= 5) {
+  print(count)
+  count <- count + 1
 }
 
+# 4. Functions in R
 
-### Repeat Loops (with break)
-
-repeat {
-  # Code to execute
-  if (condition) {
-    break  # Exit the loop
-  }
+# Define a simple function
+greet <- function(name) {
+  message <- paste("Hello,", name)
+  return(message)
 }
 
+# Call the function
+greeting <- greet("Alice")
+print(greeting)
 
-## Functions
-# Define a function
-my_function <- function(arg1, arg2) {
-  # Function body
-  return(result)
-}
+# 5. Working with Data
 
-# Call a function
-my_function(value1, value2)
+# Reading data from a CSV file (uncomment if you have a CSV file)
+# data <- read.csv("data.csv")
 
+# Create a sample data frame
+data <- data.frame(
+  id = 1:5,
+  name = c("A", "B", "C", "D", "E"),
+  age = c(23, 30, 22, 24, 29),
+  score = c(85, 90, 88, 95, 92)
+)
 
-## Apply Family Functions
+# Summary statistics
+summary(data)
 
-# Apply a function over a vector
-sapply(vec, function(x) x^2)
+# Accessing specific columns
+names <- data$name
+ages <- data$age
 
-# Apply a function over a list
-lapply(lst, length)
+# Filtering data
+high_scorers <- subset(data, score > 90)
 
-# Apply a function over margins of an array
-apply(mat, 1, sum)  # Sum of rows
+# Adding a new column
+data$grade <- ifelse(data$score > 90, "A", "B")
 
+# 6. Data Manipulation with dplyr
 
-## Reading and Writing Data
+# Load dplyr library
+library(dplyr)
 
-### Read Data
+# Select columns
+selected_data <- select(data, name, score)
 
-# Read a CSV file
-data <- read.csv("file.csv")
+# Filter rows
+filtered_data <- filter(data, score > 90)
 
-# Read a table
-data <- read.table("file.txt", header = TRUE)
+# Arrange data by a column
+arranged_data <- arrange(data, desc(score))
 
-### Write Data
+# Mutate (add new columns)
+mutated_data <- mutate(data, double_score = score * 2)
 
-# Write to a CSV file
-write.csv(data, "file.csv")
+# Summarize data
+average_score <- summarise(data, avg_score = mean(score))
 
-# Write to a table
-write.table(data, "file.txt", sep = "\t")
+# 7. Data Visualization with ggplot2
 
+# Load ggplot2 library
+library(ggplot2)
 
-## Basic Plotting
+# Create a simple scatter plot
+ggplot(data, aes(x = age, y = score)) +
+  geom_point() +
+  labs(title = "Scatter Plot of Age vs Score",
+       x = "Age",
+       y = "Score")
 
-# Basic plot
-plot(x, y)
+# Create a bar plot
+ggplot(data, aes(x = name, y = score)) +
+  geom_bar(stat = "identity") +
+  labs(title = "Bar Plot of Scores by Name",
+       x = "Name",
+       y = "Score")
 
-# Histogram
-hist(data$column)
+# Create a histogram
+ggplot(data, aes(x = score)) +
+  geom_histogram(binwidth = 5) +
+  labs(title = "Histogram of Scores",
+       x = "Score",
+       y = "Frequency")
 
-# Boxplot
-boxplot(data$column)
+# 8. Working with Factors
 
+# Create a factor
+gender <- factor(c("Male", "Female", "Female", "Male", "Male"))
 
-## Packages
-# Install a package
-install.packages("package_name")
+# Summary of the factor
+summary(gender)
+
+# Levels of the factor
+levels(gender)
+
+# 9. Handling Missing Data
+
+# Create a vector with missing values
+vec_with_na <- c(1, 2, NA, 4, 5, NA)
+
+# Check for NA values
+is.na(vec_with_na)
+
+# Remove NA values
+clean_vec <- na.omit(vec_with_na)
+
+# Replace NA with a value
+vec_with_na[is.na(vec_with_na)] <- 0
+
+# 10. Basic Statistical Functions
+
+# Mean, median, standard deviation
+mean_val <- mean(data$score)
+median_val <- median(data$score)
+sd_val <- sd(data$score)
+
+# Correlation
+cor_val <- cor(data$age, data$score)
+
+# Print statistical results
+print(mean_val)
+print(median_val)
+print(sd_val)
+print(cor_val)
+
+# 11. Writing Data to Files
+
+# Write data frame to CSV
+write.csv(data, "output.csv", row.names = FALSE)
+
+# Write data frame to RDS (R's binary format)
+saveRDS(data, "output.rds")
+
+# 12. Reading Data from Files
+
+# Read data from CSV (uncomment if you have a CSV file)
+# new_data <- read.csv("output.csv")
+
+# Read data from RDS
+new_data_rds <- readRDS("output.rds")
+
+# 13. Using Packages
+
+# Install a package (uncomment if necessary)
+# install.packages("tidyverse")
 
 # Load a package
-library(package_name)
+library(tidyverse)
+
+# Using functions from the package
+tidy_data <- data %>%
+  filter(score > 90) %>%
+  arrange(desc(score))
+
+# 14. Advanced Data Visualization
+
+# Create a boxplot
+ggplot(data, aes(x = grade, y = score)) +
+  geom_boxplot() +
+  labs(title = "Boxplot of Scores by Grade",
+       x = "Grade",
+       y = "Score")
+
+# Create a line plot
+ggplot(data, aes(x = id, y = score, group = 1)) +
+  geom_line() +
+  geom_point() +
+  labs(title = "Line Plot of Scores Over ID",
+       x = "ID",
+       y = "Score")
+
+# 15. Exporting Plots
+
+# Save the last plot to a file
+ggsave("plot.png")
+
+# 16. R Markdown (for reports and documentation)
+
+# R Markdown is beyond the scope of a script, but it's worth noting that it's a powerful tool
+# for creating dynamic documents with embedded R code. Consider learning R Markdown for
+# generating reports.
+
+# 17. Closing Remarks
+
+# This script provides an overview of many R concepts, from basic programming to data
+# manipulation and visualization. Explore each section and modify the examples to
+# deepen your understanding of R programming.
+
+# End of Script
